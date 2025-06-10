@@ -1,13 +1,23 @@
 import { Router } from "express";
+import { Routes } from "../interface/routes.interface";
+import { loginSchema } from "../validations/login.validation";
+import validatePayload from "../middleware/validatePayload.middleware";
 
-class UserRoutes {
-  public route =  Router();
+
+class UserRoute implements Routes {
+  public path = "/auth";
+  public router = Router();
+
   constructor() {
-    this.initilaze();
+    this.initializeRoutes();
   }
-  public initilaze() {
-    this.route.get("/", login);
+  private initializeRoutes() {
+    this.router.post(
+      `${this.path}/login`,
+      validatePayload({ body: loginSchema }),
+      // this.UserController.login
+    );
+
   }
 }
-
-export default new UserRoutes();
+export default UserRoute;

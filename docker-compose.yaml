@@ -1,15 +1,6 @@
 version: '3.8'
 
 services:
-  invoice-service:
-    build: ./services/invoice-service
-    container_name: invoice-service
-    volumes:
-      - ./services/invoice-service:/app
-    ports:
-      - "4000:4000"
-    depends_on:
-      - mysql-db
 
   mysql-db:
     image: mysql:8.0

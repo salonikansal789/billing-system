@@ -1,6 +1,3 @@
 import { Router } from "express";
-
-
-export const routes = [
-    
-];
+import UserRoute from "./user.route";
+export const routes = [new UserRoute()];
