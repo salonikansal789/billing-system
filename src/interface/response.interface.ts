@@ -7,10 +7,5 @@ export interface ICustomResponse extends Response{
     data: object
 }
 export interface ICustomRequest extends Request {
-  cookies: {
-    jwt: string;
-    [key: string]: any;
-  };
-
-  user?: IUser ;
+  user?: IUser & { permissions: string[]; roleId: number };
 }

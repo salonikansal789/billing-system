@@ -33,7 +33,7 @@ export default class Common {
   
   public verifyJWT = async (token: string): Promise<{} | boolean> => {
     try {
-      const decoded = jwt.verify(token, config.jwtPublicKey, {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET!, {
         algorithms: ["RS256"],
       });
       return decoded;
