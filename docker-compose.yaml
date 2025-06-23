@@ -1,6 +1,4 @@
-
 services:
-
   mysql-db:
     image: mysql:8.0
     container_name: mysql-db
@@ -11,6 +9,12 @@ services:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+  redis:
+    image: redis:6.2
+    container_name: redis
+    ports:
+      - "6379:6379"
+
 
   backend:
     build: .
@@ -19,12 +23,16 @@ services:
       - "3000:3000"
     depends_on:
       - mysql-db
+      - redis
+
     environment:
       DB_HOST: mysql-db
       DB_PORT: 3306
       DB_USER: root
       DB_PASSWORD: WJ@28@krhps
       DB_NAME: billingSystemDb
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
 
 volumes:
   mysql_data:

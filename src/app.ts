@@ -6,7 +6,8 @@ import cookieParser from "cookie-parser";
 import { routes } from "./routes/index";
 import { Routes } from "./interface/routes.interface";
 import { start } from "./server";
-
+import redisClient from "./redis/redis.config";
+import "reflect-metadata";
 class App {
   public app: Application = express();
   public port: string | number;
@@ -14,12 +15,14 @@ class App {
   constructor(routes: Routes[]) {
     this.app = express();
     this.port = process.env.port || 3000;
+
     this.initializeMiddlewares();
     this.initializeRoutes(routes);
     (async () => {
-      await this.connectToDatabase(); 
+      await this.connectToDatabase();
       this.listen();
     })();
+    this.redisConnect();
   }
 
   public listen() {
@@ -44,7 +47,10 @@ class App {
     });
   }
   private connectToDatabase() {
-      start()
+    start();
+  }
+  private async redisConnect() {
+   await redisClient.connect();
   }
 }
 

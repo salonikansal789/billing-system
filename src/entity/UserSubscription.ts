@@ -5,6 +5,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToOne,
+  JoinColumn,
 } from "typeorm";
 import { User } from "./User";
 import { Plan } from "./Plan";
@@ -14,14 +15,17 @@ export class UserSubscription {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => User, (user) => user.subscriptions)
-  user: User;
+  @Column()
+  userID: number;
 
-  @ManyToOne(() => Plan, (plan) => plan.subscriptions)
-  plan: Plan;
+  @Column()
+  planID: number;
 
   @Column("decimal", { precision: 10, scale: 2 })
   paymentAmount: number;
+
+  @Column("decimal", { precision: 10, scale: 2 })
+  receivedPayment: number;
 
   @Column()
   duration: number; // in days
@@ -35,7 +39,7 @@ export class UserSubscription {
   @Column({ default: "inactive" }) // active, expired, cancelled
   subscriptionStatus: string;
 
-  @Column({ default: false })
+  @Column({ default: true })
   autoRenew: boolean;
 
   @CreateDateColumn()

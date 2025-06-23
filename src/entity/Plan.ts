@@ -15,6 +15,12 @@ export class Plan {
   @Column()
   planTitle: string;
 
+  @Column()
+  description : string;
+
+  @Column({ default: "inactive" })
+  status: string;
+
   @Column("decimal", { precision: 10, scale: 2 })
   planAmount: number;
 
@@ -24,6 +30,6 @@ export class Plan {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @OneToMany(() => UserSubscription, (subscription) => subscription.plan)
+  @OneToMany(() => UserSubscription, (subscription) => subscription.planID)
   subscriptions: UserSubscription[];
 }

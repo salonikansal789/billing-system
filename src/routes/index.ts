@@ -1,3 +1,4 @@
-import { Router } from "express";
 import UserRoute from "./user.route";
-export const routes = [new UserRoute()];
+import PlansRoute from "./plans.route";
+import StripeRoute from "./stripe.route";
+export const routes = [new UserRoute(), new PlansRoute(), new StripeRoute()];

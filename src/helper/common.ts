@@ -18,8 +18,8 @@ export default class Common {
     );
   };
 
-  public generateToken = (userID: string, res: Response): String => {
-    const token = jwt.sign({ userID }, process.env.JWT_SECRET!, {
+  public generateToken = (payload: object,res:Response): String => {
+    const token = jwt.sign(payload, process.env.JWT_SECRET!, {
       expiresIn: "7d",
     });
     res.cookie("jwt", token, {
@@ -30,7 +30,7 @@ export default class Common {
     });
     return token;
   };
-  
+
   public verifyJWT = async (token: string): Promise<{} | boolean> => {
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET!, {

@@ -21,7 +21,7 @@ export class User {
   @Column({ nullable: false })
   password: string;
 
-  @Column({ length: 15, nullable: false })
+  @Column({ nullable: false })
   mobileNo: string;
 
   @Column({ default: "2",nullable:false }) // 1,2
@@ -36,6 +36,6 @@ export class User {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @OneToMany(() => UserSubscription, (subscription) => subscription.user)
+  @OneToMany(() => UserSubscription, (subscription) => subscription.userID)
   subscriptions: UserSubscription[];
 }
